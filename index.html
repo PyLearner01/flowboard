@@ -253,11 +253,168 @@ a{color:var(--blue);text-decoration:none}
 .welcome-text h2{font-size:18px;font-weight:600;margin-bottom:4px}
 .welcome-text p{font-size:13px;color:var(--text2)}
 
-/* Responsive */
+/* ======= SIDEBAR TOGGLE & MOBILE ======= */
+#sidebar{
+  transition: transform .32s cubic-bezier(.4,0,.2,1), opacity .32s ease, box-shadow .32s ease;
+  will-change: transform;
+}
+#sidebar-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:199;
+  opacity:0;transition:opacity .3s ease;backdrop-filter:blur(2px);
+}
+#sidebar-overlay.visible{opacity:1}
+
+#menu-toggle{
+  display:none;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:var(--radius);
+  color:var(--text2);border:1px solid var(--border);background:var(--bg3);
+  transition:all .2s ease;flex-shrink:0;
+}
+#menu-toggle:hover{color:var(--text);background:var(--bg4);border-color:var(--border2)}
+#menu-toggle .bar{
+  display:block;width:16px;height:1.5px;background:currentColor;
+  border-radius:2px;transition:transform .3s ease, opacity .3s ease, width .3s ease;
+  margin:3px auto;
+}
+
+/* Hamburger → X animation */
+#menu-toggle.open .bar:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
+#menu-toggle.open .bar:nth-child(2){opacity:0;transform:scaleX(0)}
+#menu-toggle.open .bar:nth-child(3){transform:translateY(-4.5px) rotate(-45deg)}
+
+/* ======= ENHANCED ANIMATIONS ======= */
+
+/* Sidebar items */
+.sb-item{
+  transition: background .18s ease, color .18s ease, border-color .18s ease,
+              transform .15s ease, box-shadow .15s ease;
+}
+.sb-item:hover{transform:translateX(2px)}
+.sb-item:active{transform:translateX(4px) scale(.98)}
+.sb-item.active{
+  box-shadow:0 2px 8px rgba(79,126,248,.18);
+}
+
+/* Cards */
+.card{transition:border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .2s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.card:active{transform:translateY(0) scale(.98)}
+
+/* Person cards */
+.person-card{transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease, background .2s ease}
+.person-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.person-card:active{transform:translateY(-1px) scale(.98)}
+
+/* Stat cards */
+.stat-card{transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease}
+.stat-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.25)}
+
+/* Buttons */
+.btn{transition:background .15s ease, border-color .15s ease, color .15s ease, transform .12s ease, box-shadow .15s ease}
+.btn:active{transform:scale(.95)}
+.btn-primary:hover{box-shadow:0 4px 12px rgba(79,126,248,.35)}
+.tb-btn{transition:background .15s ease, border-color .15s ease, color .15s ease, transform .12s ease, box-shadow .15s ease}
+.tb-btn:active{transform:scale(.95)}
+.tb-btn-primary:hover{box-shadow:0 4px 12px rgba(79,126,248,.35)}
+
+/* Issue rows */
+.issue-row{transition:background .15s ease, transform .15s ease, padding-left .15s ease}
+.issue-row:hover{transform:translateX(2px);padding-left:16px}
+
+/* Filter chips */
+.filter-chip{transition:all .18s ease, transform .12s ease}
+.filter-chip:hover{transform:scale(1.04)}
+.filter-chip:active{transform:scale(.96)}
+
+/* Sprint header */
+.sprint-header{transition:background .15s ease, border-color .15s ease, transform .12s ease}
+.sprint-header:hover{border-color:var(--border2);background:var(--bg3)}
+.sprint-header:active{transform:scale(.99)}
+
+/* Modal animations */
+@keyframes modalIn{from{opacity:0;transform:translateY(-20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes modalBgIn{from{opacity:0}to{opacity:1}}
+.modal-bg.open{animation:modalBgIn .22s ease}
+.modal{animation:modalIn .28s cubic-bezier(.34,1.3,.64,1)}
+
+/* Modal close btn */
+.modal-close{transition:background .15s ease, color .15s ease, transform .15s ease}
+.modal-close:hover{transform:rotate(90deg) scale(1.1)}
+
+/* Tab buttons */
+.tab-btn{transition:color .15s ease, border-color .15s ease}
+.tab-btn:hover:not(.active){color:var(--text2)}
+
+/* Sb project */
+.sb-project{transition:background .15s ease, transform .15s ease}
+.sb-project:hover{transform:translateX(2px)}
+.sb-project:active{transform:translateX(4px) scale(.98)}
+
+/* Col add button */
+.col-add{transition:background .15s ease, color .15s ease, transform .15s ease}
+.col-add:hover{transform:rotate(90deg) scale(1.1)}
+
+/* Avatar */
+.tb-avatar{transition:transform .15s ease, box-shadow .15s ease}
+.tb-avatar:hover{transform:scale(1.08);box-shadow:0 2px 10px rgba(168,85,247,.4)}
+.tb-avatar:active{transform:scale(.95)}
+
+/* Topbar search */
+.tb-search{transition:border-color .18s ease, box-shadow .18s ease}
+.tb-search:focus-within{border-color:var(--blue);box-shadow:0 0 0 2px rgba(79,126,248,.15)}
+
+/* View fade-in */
+@keyframes viewFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.view.active,.board-wrap.active,.backlog-wrap.active,.roadmap-wrap.active,.settings-wrap.active{
+  animation:viewFadeIn .25s ease;
+}
+
+/* Dashboard welcome */
+.welcome{transition:opacity .2s ease}
+
+/* ======= RESPONSIVE ======= */
 @media(max-width:900px){
-  #sidebar{display:none}
+  #menu-toggle{display:flex}
+
+  #sidebar{
+    position:fixed;top:0;left:0;bottom:0;z-index:200;
+    transform:translateX(-100%);
+    box-shadow:none;
+    width:260px;
+  }
+  #sidebar.open{
+    transform:translateX(0);
+    box-shadow:4px 0 32px rgba(0,0,0,.5);
+  }
+  #sidebar-overlay.visible{display:block}
+
   .stats-grid{grid-template-columns:1fr 1fr}
   .dash-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .detail-grid{grid-template-columns:1fr}
+
+  #topbar{padding:0 12px;gap:8px}
+  .tb-search{max-width:140px}
+  .tb-btn span{display:none}
+  .board{gap:10px}
+  .column{min-width:240px;width:240px}
+
+  /* Hide some topbar items on very small screens */
+}
+
+@media(max-width:480px){
+  .tb-search{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .people-grid{grid-template-columns:1fr 1fr}
+  .modal-bg{padding:12px 8px}
+  .modal-body{padding:16px}
+  .modal-header{padding:14px 16px}
+  .modal-footer{padding:12px 16px}
+  #pet-widget{bottom:12px;right:12px}
+  #pet-char{width:64px;height:72px}
+  .view{padding:16px}
+  .board-wrap{padding:16px}
+  .backlog-wrap{padding:16px}
 }
 
 /* ======= PET WIDGET ======= */
@@ -279,10 +436,117 @@ a{color:var(--blue);text-decoration:none}
 @keyframes catBlink{0%,82%,100%{transform:scaleY(1)}85%,95%{transform:scaleY(.07)}}
 #cat-leye-g,#cat-reye-g{transform-box:fill-box;transform-origin:50% 50%;animation:catBlink 4.5s ease-in-out infinite}
 #cat-reye-g{animation-delay:.09s}
+
+/* ======= LOGIN PAGE ======= */
+#login-page{
+  position:fixed;inset:0;z-index:9000;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+@keyframes loginFadeIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes loginBgPulse{0%,100%{opacity:.5}50%{opacity:.8}}
+.login-card{
+  background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-xl);
+  width:100%;max-width:400px;padding:40px 36px 32px;
+  box-shadow:0 24px 80px rgba(0,0,0,.6);
+  animation:loginFadeIn .45s cubic-bezier(.34,1.2,.64,1);
+  position:relative;overflow:hidden;
+}
+.login-card::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;
+  background:radial-gradient(circle,rgba(79,126,248,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.login-card::after{
+  content:'';position:absolute;bottom:-60px;left:-40px;width:180px;height:180px;
+  background:radial-gradient(circle,rgba(168,85,247,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.login-logo-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:700;color:#fff;
+  box-shadow:0 4px 16px rgba(79,126,248,.4);
+}
+.login-logo-text{font-size:20px;font-weight:700;letter-spacing:-.4px}
+.login-logo-sub{font-size:12px;color:var(--text3);margin-top:1px}
+.login-title{font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-.3px}
+.login-sub{font-size:13px;color:var(--text2);margin-bottom:28px}
+.login-field{margin-bottom:18px}
+.login-field label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:7px;letter-spacing:.2px}
+.login-field .field-wrap{position:relative;display:flex;align-items:center}
+.login-field .field-icon{position:absolute;left:12px;color:var(--text3);font-size:16px;pointer-events:none;transition:color .2s}
+.login-field input{
+  padding:10px 12px 10px 38px;font-size:14px;width:100%;
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
+  transition:border-color .2s,box-shadow .2s;
+}
+.login-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,126,248,.18)}
+.login-field input:focus~.field-icon,.login-field .field-wrap:focus-within .field-icon{color:var(--blue)}
+.login-toggle-pw{position:absolute;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:6px;transition:color .15s}
+.login-toggle-pw:hover{color:var(--text)}
+.login-btn{
+  width:100%;padding:11px;border-radius:var(--radius);border:none;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#fff;font-size:14px;font-weight:600;cursor:pointer;
+  margin-top:8px;letter-spacing:.2px;
+  transition:all .2s ease;box-shadow:0 4px 14px rgba(79,126,248,.35);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(79,126,248,.45)}
+.login-btn:active{transform:scale(.98)}
+.login-err{
+  display:none;background:var(--red-bg);border:1px solid rgba(244,63,94,.3);
+  color:var(--red);border-radius:var(--radius);padding:10px 14px;font-size:13px;
+  margin-bottom:16px;display:flex;align-items:center;gap:8px;
+}
+.login-err.show{display:flex;animation:speechPop .2s ease}
+.login-divider{text-align:center;color:var(--text3);font-size:11px;margin:20px 0 0;padding-top:20px;border-top:1px solid var(--border)}
+/* Password eye toggle */
+.field-wrap .login-toggle-pw{z-index:1}
 </style>
 </head>
 <body>
+<!-- ======= LOGIN PAGE ======= -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">F</div>
+      <div>
+        <div class="login-logo-text">FlowBoard</div>
+        <div class="login-logo-sub">Project Management</div>
+      </div>
+    </div>
+    <div class="login-title">Welcome back 👋</div>
+    <div class="login-sub">Sign in to your workspace</div>
+    <div class="login-err" id="login-err"><i class="ti ti-alert-circle" style="font-size:16px;flex-shrink:0"></i><span id="login-err-text">Invalid credentials. Please try again.</span></div>
+    <div class="login-field">
+      <label>Username</label>
+      <div class="field-wrap">
+        <i class="ti ti-user field-icon"></i>
+        <input type="text" id="login-user" placeholder="Enter your username" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <div class="field-wrap">
+        <i class="ti ti-lock field-icon"></i>
+        <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="login-toggle-pw" type="button" onclick="togglePwVis(this)" tabindex="-1"><i class="ti ti-eye"></i></button>
+      </div>
+    </div>
+    <button class="login-btn" onclick="doLogin()"><i class="ti ti-login"></i>Sign In</button>
+    <div class="login-divider">FlowBoard · All rights reserved</div>
+  </div>
+</div>
+
 <div id="app">
+  <!-- Sidebar overlay for mobile -->
+  <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
   <!-- Sidebar -->
   <nav id="sidebar">
     <div class="sb-logo">
@@ -294,10 +558,10 @@ a{color:var(--blue);text-decoration:none}
       <div class="sb-label">Workspace</div>
       <div class="sb-item active" onclick="switchView('dashboard')"><i class="ti ti-layout-dashboard"></i>Dashboard<span class="sb-badge" id="badge-open">0</span></div>
       <div class="sb-item" onclick="switchView('board')"><i class="ti ti-layout-kanban"></i>Board</div>
-      <div class="sb-item" onclick="switchView('backlog')"><i class="ti ti-list"></i>Backlog<span class="sb-badge" id="badge-backlog">0</span></div>
-      <div class="sb-item" onclick="switchView('roadmap')"><i class="ti ti-chart-gantt"></i>Roadmap</div>
-      <div class="sb-item" onclick="switchView('people')"><i class="ti ti-users"></i>People</div>
-      <div class="sb-item" onclick="switchView('reports')"><i class="ti ti-chart-bar"></i>Reports</div>
+      <div class="sb-item" onclick="switchView('backlog')"><i class="ti ti-list-details"></i>Backlog<span class="sb-badge" id="badge-backlog">0</span></div>
+      <div class="sb-item" onclick="switchView('roadmap')"><i class="ti ti-map-2"></i>Roadmap</div>
+      <div class="sb-item" onclick="switchView('people')"><i class="ti ti-users-group"></i>People</div>
+      <div class="sb-item" onclick="switchView('reports')"><i class="ti ti-chart-pie-2"></i>Reports</div>
     </div>
 
     <div class="sb-section" style="flex:1">
@@ -317,12 +581,17 @@ a{color:var(--blue);text-decoration:none}
   <div id="main">
     <!-- Top bar -->
     <div id="topbar">
+      <button id="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
       <div class="tb-title" id="view-title">Dashboard</div>
       <div class="tb-search">
         <i class="ti ti-search"></i>
         <input type="text" placeholder="Search issues..." id="global-search" oninput="handleSearch(this.value)">
       </div>
-      <button class="tb-btn tb-btn-ghost" onclick="openFilterPanel()"><i class="ti ti-filter"></i>Filter</button>
+      <button class="tb-btn tb-btn-ghost" onclick="openFilterPanel()" id="filter-btn" style="position:relative"><i class="ti ti-adjustments-horizontal"></i>Filter<span id="filter-badge" style="display:none;position:absolute;top:3px;right:3px;width:7px;height:7px;background:var(--blue);border-radius:50%;border:1.5px solid var(--bg2)"></span></button>
       <button class="tb-btn tb-btn-primary" id="create-btn" onclick="openCreateIssue()"><i class="ti ti-plus"></i>Create</button>
       <div style="position:relative">
         <button class="tb-btn tb-btn-ghost" onclick="toggleNotifs()" style="padding:6px 8px"><i class="ti ti-bell" style="font-size:16px"></i></button>
@@ -710,6 +979,58 @@ a{color:var(--blue);text-decoration:none}
   <div id="notif-list" style="max-height:340px;overflow-y:auto;padding:8px"></div>
 </div>
 
+<!-- ======= FILTER PANEL ======= -->
+<div id="filter-panel" style="position:fixed;top:52px;right:16px;width:300px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);z-index:900;display:none;box-shadow:0 8px 32px rgba(0,0,0,.4);animation:modalIn .22s cubic-bezier(.34,1.2,.64,1)">
+  <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px"><i class="ti ti-adjustments-horizontal" style="color:var(--blue)"></i>Filters</div>
+    <div style="display:flex;gap:6px">
+      <button onclick="clearFilters()" style="font-size:12px;color:var(--text3);padding:3px 8px;border-radius:var(--radius);border:1px solid var(--border);transition:all .15s" onmouseover="this.style.color='var(--red)';this.style.borderColor='rgba(244,63,94,.4)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border)'">Reset</button>
+      <button onclick="closeFilterPanel()" style="color:var(--text3);padding:4px;border-radius:var(--radius);transition:all .15s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text3)'"><i class="ti ti-x"></i></button>
+    </div>
+  </div>
+  <div style="padding:14px 16px;max-height:70vh;overflow-y:auto">
+    <!-- Priority -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px">Priority</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <button class="filter-chip" onclick="toggleFilter('priority','critical')" id="fp-critical"><i class="ti ti-flame" style="font-size:13px"></i>Critical</button>
+        <button class="filter-chip" onclick="toggleFilter('priority','high')" id="fp-high"><i class="ti ti-arrow-up" style="font-size:13px"></i>High</button>
+        <button class="filter-chip" onclick="toggleFilter('priority','medium')" id="fp-medium"><i class="ti ti-minus" style="font-size:13px"></i>Medium</button>
+        <button class="filter-chip" onclick="toggleFilter('priority','low')" id="fp-low"><i class="ti ti-arrow-down" style="font-size:13px"></i>Low</button>
+      </div>
+    </div>
+    <!-- Status -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px">Status</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <button class="filter-chip" onclick="toggleFilter('status','todo')" id="fs-todo"><i class="ti ti-circle-dashed" style="font-size:13px"></i>To Do</button>
+        <button class="filter-chip" onclick="toggleFilter('status','progress')" id="fs-progress"><i class="ti ti-progress" style="font-size:13px"></i>In Progress</button>
+        <button class="filter-chip" onclick="toggleFilter('status','review')" id="fs-review"><i class="ti ti-eye" style="font-size:13px"></i>In Review</button>
+        <button class="filter-chip" onclick="toggleFilter('status','done')" id="fs-done"><i class="ti ti-circle-check" style="font-size:13px"></i>Done</button>
+      </div>
+    </div>
+    <!-- Type -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px">Type</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <button class="filter-chip" onclick="toggleFilter('type','task')" id="ft-task"><i class="ti ti-check" style="font-size:13px"></i>Task</button>
+        <button class="filter-chip" onclick="toggleFilter('type','story')" id="ft-story"><i class="ti ti-book" style="font-size:13px"></i>Story</button>
+        <button class="filter-chip" onclick="toggleFilter('type','bug')" id="ft-bug"><i class="ti ti-bug" style="font-size:13px"></i>Bug</button>
+        <button class="filter-chip" onclick="toggleFilter('type','epic')" id="ft-epic"><i class="ti ti-bolt" style="font-size:13px"></i>Epic</button>
+      </div>
+    </div>
+    <!-- Assignee -->
+    <div style="margin-bottom:4px">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px">Assignee</div>
+      <div id="filter-assignees" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+    </div>
+  </div>
+  <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+    <div id="filter-count" style="font-size:12px;color:var(--text3)">No filters active</div>
+    <button onclick="applyFilters();closeFilterPanel()" style="background:var(--blue);color:#fff;padding:7px 16px;border-radius:var(--radius);font-size:13px;font-weight:600;transition:all .15s;box-shadow:0 2px 8px rgba(79,126,248,.3)" onmouseover="this.style.background='var(--blue2)'" onmouseout="this.style.background='var(--blue)'"><i class="ti ti-check"></i> Apply</button>
+  </div>
+</div>
+
 <!-- ======= PET WIDGET ======= -->
 <div id="pet-widget">
   <div id="pet-speech" class="pet-speech" style="display:none"></div>
@@ -887,6 +1208,8 @@ function labelColor(label){
 // ======= NAVIGATION =======
 function switchView(view){
   currentView=view;
+  // Close sidebar on mobile after navigation
+  if(window.innerWidth<=900)closeSidebar();
   document.querySelectorAll('.view,.board-wrap,.backlog-wrap,.roadmap-wrap,.settings-wrap').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('#view-people').forEach(el=>el.style.display='none');
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
@@ -909,14 +1232,15 @@ function switchView(view){
 
 // ======= DASHBOARD =======
 function renderDashboard(){
-  const open=DB.issues.filter(i=>i.status!=='done').length;
-  const progress=DB.issues.filter(i=>i.status==='progress').length;
-  const done=DB.issues.filter(i=>i.status==='done').length;
+  const filtered=getFilteredIssues(DB.issues);
+  const open=filtered.filter(i=>i.status!=='done').length;
+  const progress=filtered.filter(i=>i.status==='progress').length;
+  const done=filtered.filter(i=>i.status==='done').length;
   document.getElementById('stat-open').textContent=open;
   document.getElementById('stat-progress').textContent=progress;
   document.getElementById('stat-done').textContent=done;
   document.getElementById('stat-members').textContent=DB.members.length;
-  document.getElementById('badge-open').textContent=open;
+  document.getElementById('badge-open').textContent=DB.issues.filter(i=>i.status!=='done').length;
   document.getElementById('badge-backlog').textContent=DB.issues.filter(i=>!i.sprint).length;
   document.getElementById('welcome-open').textContent=open;
   document.getElementById('welcome-projects').textContent=DB.projects.length;
@@ -1030,7 +1354,7 @@ function loadBoard(){
   spSel.innerHTML='<option value="">All Sprints</option>'+DB.sprints.filter(s=>!projId||s.project===projId).map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
   if(spVal)spSel.value=spVal;
 
-  let issues=DB.issues.filter(i=>(!projId||i.project===projId)&&(!sprintId||i.sprint===sprintId));
+  let issues=getFilteredIssues(DB.issues.filter(i=>(!projId||i.project===projId)&&(!sprintId||i.sprint===sprintId)));
 
   const cols=['todo','progress','review','done'];
   const colNames={todo:'To Do',progress:'In Progress',review:'In Review',done:'Done'};
@@ -1093,7 +1417,7 @@ function drop(e,col){
 function loadBacklog(){
   populateProjectSelects();
   const projId=document.getElementById('backlog-project').value;
-  const issues=DB.issues.filter(i=>!projId||i.project===projId);
+  const issues=getFilteredIssues(DB.issues.filter(i=>!projId||i.project===projId));
   const sprints=DB.sprints.filter(s=>!projId||s.project===projId);
 
   // Sprint sections
@@ -1610,6 +1934,169 @@ function importData(e){
 }
 function confirmClear(){
   if(confirm('This will delete ALL data. Are you sure?')){localStorage.removeItem('flowboard_v3');location.reload()}
+}
+
+// ======= LOGIN =======
+(function(){
+  // Check if already logged in this session
+  if(sessionStorage.getItem('fb_auth')==='1'){
+    document.getElementById('login-page').style.display='none';
+  }
+})();
+
+function doLogin(){
+  const u=document.getElementById('login-user').value.trim();
+  const p=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-err');
+  const errText=document.getElementById('login-err-text');
+  err.classList.remove('show');
+
+  if(!u||!p){
+    errText.textContent='Please enter both username and password.';
+    err.classList.add('show');
+    return;
+  }
+  if(u==='Admin'&&p==='Pass@123'){
+    sessionStorage.setItem('fb_auth','1');
+    const lp=document.getElementById('login-page');
+    lp.style.transition='opacity .4s ease, transform .4s ease';
+    lp.style.opacity='0';
+    lp.style.transform='scale(1.03)';
+    setTimeout(()=>{lp.style.display='none'},400);
+    toast('Welcome back, Admin! 👋');
+  } else {
+    errText.textContent='Invalid username or password. Please try again.';
+    err.classList.add('show');
+    const card=document.querySelector('.login-card');
+    card.style.animation='none';
+    card.style.transform='translateX(-8px)';
+    setTimeout(()=>{card.style.transition='transform .4s cubic-bezier(.34,1.5,.64,1)';card.style.transform='translateX(0)'},80);
+    setTimeout(()=>{card.style.transition='';card.style.animation=''},500);
+    document.getElementById('login-pass').value='';
+    document.getElementById('login-pass').focus();
+  }
+}
+
+function togglePwVis(btn){
+  const inp=btn.parentElement.querySelector('input');
+  const icon=btn.querySelector('i');
+  if(inp.type==='password'){
+    inp.type='text';
+    icon.className='ti ti-eye-off';
+  } else {
+    inp.type='password';
+    icon.className='ti ti-eye';
+  }
+}
+
+// ======= FILTER STATE =======
+let activeFilters={priority:[],status:[],type:[],assignee:[]};
+
+function openFilterPanel(){
+  const fp=document.getElementById('filter-panel');
+  const np=document.getElementById('notif-panel');
+  np.style.display='none';
+  if(fp.style.display==='block'){closeFilterPanel();return;}
+  // Populate assignees
+  const ac=document.getElementById('filter-assignees');
+  ac.innerHTML=DB.members.map(m=>`<button class="filter-chip ${activeFilters.assignee.includes(m.id)?'active':''}" onclick="toggleFilter('assignee','${m.id}')" id="fa-${m.id}" style="display:flex;align-items:center;gap:5px"><span style="width:16px;height:16px;border-radius:50%;background:${m.color||'var(--purple)'};display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">${m.name.split(' ').map(x=>x[0]).join('').slice(0,2)}</span>${m.name.split(' ')[0]}</button>`).join('');
+  // Sync chip states
+  syncFilterChips();
+  fp.style.display='block';
+  fp.style.animation='modalIn .22s cubic-bezier(.34,1.2,.64,1)';
+  updateFilterCount();
+}
+
+function closeFilterPanel(){
+  document.getElementById('filter-panel').style.display='none';
+}
+
+function toggleFilter(cat,val){
+  const arr=activeFilters[cat];
+  const idx=arr.indexOf(val);
+  if(idx>-1)arr.splice(idx,1);else arr.push(val);
+  syncFilterChips();
+  updateFilterCount();
+}
+
+function syncFilterChips(){
+  [['priority',['critical','high','medium','low'],'fp'],['status',['todo','progress','review','done'],'fs'],['type',['task','story','bug','epic'],'ft']].forEach(([cat,vals,pfx])=>{
+    vals.forEach(v=>{
+      const el=document.getElementById(pfx+'-'+v);
+      if(el)el.classList.toggle('active',activeFilters[cat].includes(v));
+    });
+  });
+  DB.members.forEach(m=>{
+    const el=document.getElementById('fa-'+m.id);
+    if(el)el.classList.toggle('active',activeFilters.assignee.includes(m.id));
+  });
+}
+
+function updateFilterCount(){
+  const total=activeFilters.priority.length+activeFilters.status.length+activeFilters.type.length+activeFilters.assignee.length;
+  const el=document.getElementById('filter-count');
+  const badge=document.getElementById('filter-badge');
+  const btn=document.getElementById('filter-btn');
+  if(total===0){
+    el.textContent='No filters active';
+    badge.style.display='none';
+    btn.classList.remove('active');
+  } else {
+    el.textContent=total+' filter'+(total>1?'s':'')+' active';
+    badge.style.display='block';
+    btn.classList.add('active');
+  }
+}
+
+function clearFilters(){
+  activeFilters={priority:[],status:[],type:[],assignee:[]};
+  syncFilterChips();
+  updateFilterCount();
+  refreshCurrentView();
+}
+
+function applyFilters(){
+  updateFilterCount();
+  refreshCurrentView();
+}
+
+function getFilteredIssues(issues){
+  let res=issues;
+  if(activeFilters.priority.length)res=res.filter(i=>activeFilters.priority.includes(i.priority));
+  if(activeFilters.status.length)res=res.filter(i=>activeFilters.status.includes(i.status));
+  if(activeFilters.type.length)res=res.filter(i=>activeFilters.type.includes(i.type));
+  if(activeFilters.assignee.length)res=res.filter(i=>activeFilters.assignee.includes(i.assignee));
+  return res;
+}
+
+// Close filter panel on outside click
+document.addEventListener('click',function(e){
+  const fp=document.getElementById('filter-panel');
+  if(fp.style.display==='block'&&!e.target.closest('#filter-panel')&&!e.target.closest('#filter-btn'))closeFilterPanel();
+});
+
+// ======= SIDEBAR TOGGLE =======
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  const btn=document.getElementById('menu-toggle');
+  const isOpen=sb.classList.contains('open');
+  if(isOpen){closeSidebar();}
+  else{
+    sb.classList.add('open');
+    ov.style.display='block';
+    requestAnimationFrame(()=>ov.classList.add('visible'));
+    btn.classList.add('open');
+  }
+}
+function closeSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  const btn=document.getElementById('menu-toggle');
+  sb.classList.remove('open');
+  btn.classList.remove('open');
+  ov.classList.remove('visible');
+  setTimeout(()=>{ov.style.display='none'},300);
 }
 
 // ======= TOAST =======
